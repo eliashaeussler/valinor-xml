@@ -46,21 +46,21 @@ final class ArrayHelper
 {
     /**
      * @param array<string, mixed> $array
+     * @param list<string>         $currentPathSegments
      *
      * @return array<string, mixed>
      *
      * @throws Exception\ArrayPathHasUnexpectedType
      * @throws Exception\ArrayPathIsInvalid
      */
-    public static function convertToCollection(array $array, string $path): array
+    public static function convertToCollection(array $array, string $path, array &$currentPathSegments = []): array
     {
         $reference = &$array;
         $pathSegments = str_getcsv($path, '.');
         $remainingSegments = $pathSegments;
-        $currentPathSegments = [];
 
         foreach ($pathSegments as $pathSegment) {
-            $currentPathSegments[] = array_shift($remainingSegments);
+            $currentPathSegments[] = (string) array_shift($remainingSegments);
 
             // Validate path segment
             if (!is_string($pathSegment) || '' === trim($pathSegment)) {
@@ -71,8 +71,8 @@ final class ArrayHelper
             if ('*' === $pathSegment) {
                 $reference = self::convertListToCollection(
                     $reference,
-                    implode('.', array_slice($currentPathSegments, 0, -1)),
                     implode('.', $remainingSegments),
+                    $currentPathSegments,
                 );
 
                 return $array;
@@ -106,21 +106,25 @@ final class ArrayHelper
 
     /**
      * @param array<mixed> $array
+     * @param list<string> $currentPathSegments
      *
      * @return array<int, mixed>
      *
      * @throws Exception\ArrayPathHasUnexpectedType
      * @throws Exception\ArrayPathIsInvalid
      */
-    private static function convertListToCollection(array $array, string $currentPath, string $remainingPath): array
-    {
+    private static function convertListToCollection(
+        array $array,
+        string $remainingPath,
+        array &$currentPathSegments = [],
+    ): array {
         // Handle non-lists
         if (!array_is_list($array)) {
-            throw new Exception\ArrayPathHasUnexpectedType($currentPath, 'list', 'array');
+            throw new Exception\ArrayPathHasUnexpectedType(implode('.', array_slice($currentPathSegments, 0, -1)), 'list', 'array');
         }
 
         foreach ($array as $key => $value) {
-            $array[$key] = self::convertToCollection($value, $remainingPath);
+            $array[$key] = self::convertToCollection($value, $remainingPath, $currentPathSegments);
         }
 
         return $array;

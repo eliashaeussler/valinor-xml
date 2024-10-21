@@ -50,16 +50,20 @@ final class ArrayHelperTest extends Framework\TestCase
     public function convertToCollectionThrowsExceptionOnNonListValues(): void
     {
         $this->expectExceptionObject(
-            new Src\Exception\ArrayPathHasUnexpectedType('foo', 'list', 'array'),
+            new Src\Exception\ArrayPathHasUnexpectedType('foo.*.baz', 'list', 'array'),
         );
 
         $array = [
             'foo' => [
-                'baz' => null,
+                [
+                    'baz' => [
+                        'bar' => null,
+                    ],
+                ],
             ],
         ];
 
-        Src\Helper\ArrayHelper::convertToCollection($array, 'foo.*.baz');
+        Src\Helper\ArrayHelper::convertToCollection($array, 'foo.*.baz.*.bar');
     }
 
     #[Framework\Attributes\Test]
