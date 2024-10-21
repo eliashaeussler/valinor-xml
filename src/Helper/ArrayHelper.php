@@ -31,6 +31,7 @@ use function array_shift;
 use function array_slice;
 use function gettype;
 use function implode;
+use function is_array;
 use function is_string;
 use function str_getcsv;
 use function trim;
@@ -86,12 +87,17 @@ final class ArrayHelper
 
             // Handle non-array values
             if (!is_array($reference)) {
-                throw new Exception\ArrayPathHasUnexpectedType(implode('.', $currentPathSegments), 'array', gettype($reference));
+                if ([] !== $remainingSegments) {
+                    throw new Exception\ArrayPathHasUnexpectedType(implode('.', $currentPathSegments), 'array', gettype($reference));
+                }
+
+                // This is actually superfluous, it's just here to make PHPStan happy.
+                break;
             }
         }
 
         // Convert array to list
-        if (!array_is_list($reference)) {
+        if (!is_array($reference) || !array_is_list($reference)) {
             $reference = [$reference];
         }
 
