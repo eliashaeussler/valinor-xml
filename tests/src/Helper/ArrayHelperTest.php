@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace EliasHaeussler\ValinorXml\Tests\Helper;
 
 use EliasHaeussler\ValinorXml as Src;
+use Generator;
 use PHPUnit\Framework;
 
 /**
@@ -62,7 +63,7 @@ final class ArrayHelperTest extends Framework\TestCase
     }
 
     #[Framework\Attributes\Test]
-    public function convertToCollectionConvertsRespectsListPlaceholders(): void
+    public function convertToCollectionRespectsListPlaceholders(): void
     {
         $array = [
             'foo' => [
@@ -115,8 +116,12 @@ final class ArrayHelperTest extends Framework\TestCase
         Src\Helper\ArrayHelper::convertToCollection($array, 'foo.baz');
     }
 
+    /**
+     * @param array<string, mixed> $expected
+     */
     #[Framework\Attributes\Test]
-    public function convertToCollectionConvertsGivenPathToCollection(): void
+    #[Framework\Attributes\DataProvider('convertToCollectionConvertsGivenPathToCollectionDataProvider')]
+    public function convertToCollectionConvertsGivenPathToCollection(string $path, array $expected): void
     {
         $array = [
             'foo' => [
@@ -126,16 +131,37 @@ final class ArrayHelperTest extends Framework\TestCase
             ],
         ];
 
-        $expected = [
-            'foo' => [
-                'baz' => [
-                    [
-                        'hello' => 'world',
+        self::assertSame($expected, Src\Helper\ArrayHelper::convertToCollection($array, $path));
+    }
+
+    /**
+     * @return Generator<string, array{string, array<string, mixed>}>
+     */
+    public static function convertToCollectionConvertsGivenPathToCollectionDataProvider(): Generator
+    {
+        yield 'array to list' => [
+            'foo.baz',
+            [
+                'foo' => [
+                    'baz' => [
+                        [
+                            'hello' => 'world',
+                        ],
                     ],
                 ],
             ],
         ];
-
-        self::assertSame($expected, Src\Helper\ArrayHelper::convertToCollection($array, 'foo.baz'));
+        yield 'non-array to list' => [
+            'foo.baz.hello',
+            [
+                'foo' => [
+                    'baz' => [
+                        'hello' => [
+                            'world',
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 }
