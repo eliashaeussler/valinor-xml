@@ -56,7 +56,7 @@ final class ArrayHelper
     public static function convertToCollection(array $array, string $path, array &$currentPathSegments = []): array
     {
         $reference = &$array;
-        $pathSegments = str_getcsv($path, '.');
+        $pathSegments = str_getcsv($path, '.', escape: '\\');
         $remainingSegments = $pathSegments;
 
         foreach ($pathSegments as $pathSegment) {
