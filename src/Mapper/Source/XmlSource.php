@@ -58,6 +58,7 @@ final class XmlSource extends ArrayObject
         set_error_handler(static fn (int $code, string $message) => self::handleParseError($xml, $message));
 
         try {
+            /** @var array<string, mixed> $source */
             $source = XmlToArray\XmlToArray::convert($xml);
         } catch (Throwable $exception) {
             self::handleParseError($xml, $exception->getMessage());
