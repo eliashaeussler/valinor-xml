@@ -45,10 +45,10 @@ use function trim;
 final class ArrayHelper
 {
     /**
-     * @param array<string, mixed> $array
-     * @param list<string>         $currentPathSegments
+     * @param array<mixed> $array
+     * @param list<string> $currentPathSegments
      *
-     * @return array<string, mixed>
+     * @return array<mixed>
      *
      * @throws Exception\ArrayPathHasUnexpectedType
      * @throws Exception\ArrayPathIsInvalid
@@ -124,7 +124,9 @@ final class ArrayHelper
         }
 
         foreach ($array as $key => $value) {
-            $array[$key] = self::convertToCollection($value, $remainingPath, $currentPathSegments);
+            if (is_array($value)) {
+                $array[$key] = self::convertToCollection($value, $remainingPath, $currentPathSegments);
+            }
         }
 
         return $array;
