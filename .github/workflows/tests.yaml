@@ -6,13 +6,14 @@ on:
 
 jobs:
   tests:
-    name: Tests (PHP ${{ matrix.php-version }} & ${{ matrix.dependencies }} dependencies)
+    name: Tests (PHP ${{ matrix.php-version }}, Valinor ${{ matrix.valinor-version }} & ${{ matrix.dependencies }} dependencies)
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         php-version: ["8.1", "8.2", "8.3", "8.4"]
-        dependencies: ["locked", "highest", "lowest"]
+        valinor-version: ["1", "2"]
+        dependencies: ["highest", "lowest"]
     steps:
       - uses: actions/checkout@v4
         with:
@@ -31,6 +32,7 @@ jobs:
         uses: ramsey/composer-install@v3
         with:
           dependency-versions: ${{ matrix.dependencies }}
+          composer-options: --with=cuyz/valinor:"^${{ matrix.valinor-version }}"
 
       # Run tests
       - name: Run tests
