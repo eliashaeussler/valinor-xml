@@ -114,6 +114,10 @@ rulesets:
               integration_id: 15368
             - context: 'Tests (PHP 8.4, Valinor 2 & lowest dependencies)'
               integration_id: 15368
+            - context: 'Tests (PHP 8.5, Valinor 2 & highest dependencies)'
+              integration_id: 15368
+            - context: 'Tests (PHP 8.5, Valinor 2 & lowest dependencies)'
+              integration_id: 15368
             - context: 'Test coverage'
               integration_id: 15368
     bypass_actors:
