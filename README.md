@@ -5,8 +5,7 @@
 # XML source for `cuyz/valinor`
 
 [![Coverage](https://img.shields.io/coverallsCoverage/github/eliashaeussler/valinor-xml?logo=coveralls)](https://coveralls.io/github/eliashaeussler/valinor-xml)
-[![CGL](https://img.shields.io/github/actions/workflow/status/eliashaeussler/valinor-xml/cgl.yaml?label=cgl&logo=github)](https://github.com/eliashaeussler/valinor-xml/actions/workflows/cgl.yaml)
-[![Tests](https://img.shields.io/github/actions/workflow/status/eliashaeussler/valinor-xml/tests.yaml?label=tests&logo=github)](https://github.com/eliashaeussler/valinor-xml/actions/workflows/tests.yaml)
+[![CI](https://img.shields.io/github/actions/workflow/status/eliashaeussler/valinor-xml/ci.yaml?label=CI&logo=github)](https://github.com/eliashaeussler/valinor-xml/actions/workflows/ci.yaml)
 [![Supported PHP Versions](https://img.shields.io/packagist/dependency-v/eliashaeussler/valinor-xml/php?logo=php)](https://packagist.org/packages/eliashaeussler/valinor-xml)
 
 </div>

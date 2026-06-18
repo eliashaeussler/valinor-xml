@@ -21,15 +21,11 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PHPStanConfig;
+use ShipMonk\ComposerDependencyAnalyser;
 
-return PHPStanConfig\Config\Config::create(__DIR__)
-    ->in(
-        'src',
-        'tests',
-    )
-    ->withBleedingEdge()
-    ->withBaseline()
-    ->maxLevel()
-    ->toArray()
-;
+$config = new ComposerDependencyAnalyser\Config\Configuration();
+$config->ignoreErrorsOnPackage('cuyz/valinor', [
+    ComposerDependencyAnalyser\Config\ErrorType::UNUSED_DEPENDENCY,
+]);
+
+return $config;
