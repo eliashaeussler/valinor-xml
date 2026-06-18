@@ -21,18 +21,15 @@ declare(strict_types=1);
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-use EliasHaeussler\PhpCsFixerConfig;
-use Symfony\Component\Finder;
+use EliasHaeussler\PHPStanConfig;
 
-$header = PhpCsFixerConfig\Rules\Header::create(
-    'eliashaeussler/valinor-xml',
-    PhpCsFixerConfig\Package\Type::ComposerPackage,
-    PhpCsFixerConfig\Package\Author::create('Elias Häußler', 'elias@haeussler.dev'),
-    PhpCsFixerConfig\Package\CopyrightRange::from(2024),
-    PhpCsFixerConfig\Package\License::GPL3OrLater,
-);
-
-return PhpCsFixerConfig\Config::create()
-    ->withRule($header)
-    ->withFinder(static fn (Finder\Finder $finder) => $finder->in(__DIR__))
+return PHPStanConfig\Config\Config::create(dirname(__DIR__, 2))
+    ->in(
+        'src',
+        'tests',
+    )
+    ->withBleedingEdge()
+    ->withBaseline(__DIR__.'/phpstan-baseline.neon')
+    ->maxLevel()
+    ->toArray()
 ;

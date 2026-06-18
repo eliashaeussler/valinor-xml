@@ -4,4 +4,4 @@ parameters:
 			rawMessage: 'Method EliasHaeussler\ValinorXml\Helper\ArrayHelper::convertToCollection() should return array<mixed> but returns mixed.'
 			identifier: return.type
 			count: 1
-			path: src/Helper/ArrayHelper.php
+			path: ../../src/Helper/ArrayHelper.php
