@@ -88,19 +88,20 @@
         },
         {
             "name": "mtownsend/xml-to-array",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mtownsend5512/xml-to-array.git",
-                "reference": "0734720a8462dba36d90fb8b2723bf46af0091f4"
+                "reference": "8e4b08ae0f56f1e2a77b4b88a0e17bce0200350e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mtownsend5512/xml-to-array/zipball/0734720a8462dba36d90fb8b2723bf46af0091f4",
-                "reference": "0734720a8462dba36d90fb8b2723bf46af0091f4",
+                "url": "https://api.github.com/repos/mtownsend5512/xml-to-array/zipball/8e4b08ae0f56f1e2a77b4b88a0e17bce0200350e",
+                "reference": "8e4b08ae0f56f1e2a77b4b88a0e17bce0200350e",
                 "shasum": ""
             },
             "require": {
+                "ext-dom": "*",
                 "php": "~7.0|~8.0"
             },
             "require-dev": {
@@ -135,9 +136,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mtownsend5512/xml-to-array/issues",
-                "source": "https://github.com/mtownsend5512/xml-to-array/tree/2.0.0"
+                "source": "https://github.com/mtownsend5512/xml-to-array/tree/2.0.1"
             },
-            "time": "2021-02-27T22:39:18+00:00"
+            "time": "2026-09-15T13:43:01+00:00"
         }
     ],
     "packages-dev": [
